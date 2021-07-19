@@ -18,11 +18,13 @@ public class RealmHelper {
 
     }
 
+    // get people object from realm database
     public void selectFromDB(){
         people = realm.where(Person.class).findAll();
 
     }
 
+    // get list of person item from contact/person
     public ArrayList<Person> refresh(){
         ArrayList<Person> listitem = new ArrayList<>();
         for (Person p: people){

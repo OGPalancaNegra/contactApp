@@ -3,11 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        >
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:id="@+id/toolbar"
+
         >
 
         <RelativeLayout
@@ -23,6 +29,10 @@
                 android:text="Alceu Caterça"
                 android:textSize="20dp"
                 android:layout_toRightOf="@id/back_image_view"
+                android:textColor="@color/white"
+
+
+
                 ></TextView>
 
             <ImageView
@@ -37,6 +47,7 @@
             </ImageView>
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_below="@+id/toolbar"

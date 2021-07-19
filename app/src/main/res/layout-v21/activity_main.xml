@@ -41,7 +41,7 @@
         android:id="@+id/no_contact_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Contacts. Use '+' to add a new contatc"
+        android:text="@string/no_contacts_use_to_add_a_new_contact"
         android:layout_below="@+id/no_contact_image"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
@@ -66,6 +66,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        app:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/add_icon"
         >
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>

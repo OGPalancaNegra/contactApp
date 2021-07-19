@@ -25,6 +25,7 @@ import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
 
+
     Realm realm;
     ListView listView;
     RealmHelper realmHelper;
@@ -36,11 +37,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // create an instance of Realm
         realm = Realm.getDefaultInstance();
 
 
-       // setSupportActionBar((androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar));
-
+        // get required views from main act layout
         ImageView noContactImage = findViewById(R.id.no_contact_image);
 
         TextView contactText = findViewById(R.id.no_contact_text);
@@ -51,15 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        /***final ImageView addContactImageView = findViewById(R.id.add_contact_image);
-
-        addContactImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addContactNavigation();
-            }
-        });*/
-
+        // set on click listener to the fab to navigate to the add Contact Activity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,21 +63,36 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        // create a Realm Helper class to get people object from realm database
 
         realmHelper = new RealmHelper(realm);
         realmHelper.selectFromDB();
 
+
+        // instantiate previously created Custom Adapter class and pass in current activity as well as list of contacts
+
         final CustomAdapter adapter = new CustomAdapter(this, realmHelper.refresh());
+
+        // set contact adapter to the list view
+
         listView.setAdapter(adapter);
 
+
+
+        // set on item click listener to listener view to display the respected selected data onto  display activity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Toast.makeText(MainActivity.this, "You selected" + realmHelper.refresh().get(i).getFirstName().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "You selected " + realmHelper.refresh().get(i).getFirstName(), Toast.LENGTH_SHORT).show();
 
+
+                // create an Intent for main activity navigation
                 Intent intent = new Intent(MainActivity.this, DisplayContact.class);
+
+                // parse in user selected data to intent with putExtra and  get(position)  methods
+
                 intent.putExtra("first_name", realmHelper.refresh().get(i).getFirstName());
                 intent.putExtra("last_name", realmHelper.refresh().get(i).getLastName());
                 intent.putExtra("email", realmHelper.refresh().get(i).getEmail());
@@ -96,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        // display no contact image as well as instructions if contact list empty else display list of contacts
 
         if (realmHelper.refresh().isEmpty()){
             listView.setVisibility(View.GONE);

@@ -31,12 +31,16 @@ public class DisplayContact extends AppCompatActivity {
             }
         });
 
+
+        // get parsed data from main activity with getIntent and getString methods
+
         firstNameString = getIntent().getStringExtra("first_name");
         lastNameString = getIntent().getStringExtra("last_name");
         emailString = getIntent().getStringExtra("email");
         phoneNumberString = getIntent().getStringExtra("phone_number");
         addressString = getIntent().getStringExtra("address");
 
+        // find the text views to hold the data
         firstNameTV = findViewById(R.id.first_name_tv);
         lastNameTV = findViewById(R.id.last_name_tv);
         emailTV = findViewById(R.id.email_tv);
@@ -44,6 +48,7 @@ public class DisplayContact extends AppCompatActivity {
         addressTV = findViewById(R.id.address_tv);
         titleTV = findViewById(R.id.selected_name);
 
+        // set parsed data onto their respective text views with set text method
         firstNameTV.setText(firstNameString);
         lastNameTV.setText(lastNameString);
         emailTV.setText(emailString);

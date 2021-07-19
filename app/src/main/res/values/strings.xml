@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Contact App</string>
+    <string name="no_contacts_use_to_add_a_new_contact">No Contacts. Use \'+\' to add a new contact</string>
+    <string name="add_new_contact">Add New Contact</string>
 </resources>

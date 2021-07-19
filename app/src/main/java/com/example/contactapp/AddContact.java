@@ -24,7 +24,6 @@ public class AddContact extends AppCompatActivity {
     EditText firstNameEdit, lastNameEdit, emailEdit, phoneNumberEdit, addressEdit;
 
     String firstName, lastName, email, address, phoneNumber2;
-    Long phoneNumber;
 
 
     @Override
@@ -32,16 +31,21 @@ public class AddContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
 
-        // Realm.init(this);
+
+        // create an instance of Realm database
 
         realm = Realm.getDefaultInstance();
 
+
+        // set an onclick listener to the back image to navigate back to the main activity
         backImageView = findViewById(R.id.back_image_view);
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(mainActivityIntent);
+
+                //ensure that current activity is closed so no in the back stack
                 finish();
             }
         });
@@ -67,13 +71,17 @@ public class AddContact extends AppCompatActivity {
         phoneNumberEdit = findViewById(R.id.phone_number);
         addressEdit = findViewById(R.id.address);
 
+
+        // get user inputed text and convert to string with getText() and toString() methods
         firstName = firstNameEdit.getText().toString();
         lastName = lastNameEdit.getText().toString();
         email = emailEdit.getText().toString();
         phoneNumber2 = phoneNumberEdit.getText().toString();
         address = addressEdit.getText().toString();
 
-        // validating the text fields if empty or not.
+        // validate if the text fields are empty or not.
+
+        // if empty set an error message to the edit text views
         if (TextUtils.isEmpty(firstName)) {
             firstNameEdit.setError("Please enter First Name");
         } else if (TextUtils.isEmpty(lastName)) {
@@ -88,6 +96,9 @@ public class AddContact extends AppCompatActivity {
             // calling method to add data to Realm database..
             addDataToDatabase(firstName, lastName, email, phoneNumber2, address);
             Toast.makeText(this, "Person added to database..", Toast.LENGTH_SHORT).show();
+
+            // empty out the edit text views so user doesnt have to delete previous data next time when creating a contact
+
             firstNameEdit.setText("");
             lastNameEdit.setText("");
             emailEdit.setText("");
@@ -100,29 +111,28 @@ public class AddContact extends AppCompatActivity {
     }
 
     private void addDataToDatabase(String firstName, String lastName, String email, String phoneNumber2, String address) {
-        // on below line we are creating
-        // a variable for our modal class.
+
+        // create a Person/Contact class to be passed to the realm database
         final Person person = new Person();
 
-        // on below line we are getting id for the course which we are storing.
+        //get  id of the contact which we are storing.
         Number id = realm.where(Person.class).max("id");
 
-        // on below line we ar
-        // creating a variable for our id.
+
+        // create a variable for id.
         long nextId;
 
-        // validating if id is null or not.
+        // validate if id is null or not.
         if (id == null) {
-            // if id is null
-            // we are passing it as 1.
+
+            // set id to 1 if id is null
             nextId = 1;
         } else {
-            // if id is not null then
-            // we are incrementing it by 1
+
+            // increment by 1 if not empty
             nextId = id.intValue() + 1;
         }
-        // on below line we are setting the
-        // data entered by user in our modal class.
+        // set the user inputed data onto the person/contact object
         person.setId(nextId);
         person.setFirstName(firstName);
         person.setLastName(lastName);
@@ -130,12 +140,12 @@ public class AddContact extends AppCompatActivity {
         person.setPhoneNumber(phoneNumber2);
         person.setAddress(address);
 
-        // on below line we are calling a method to execute a transaction.
+        // Execute a realm transaction to store data in realm database.
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                // inside on execute method we are calling a method
-                // to copy to real m database from our modal class.
+
+                // copy person/contact class to realm database.
                 realm.copyToRealm(person);
             }
         });

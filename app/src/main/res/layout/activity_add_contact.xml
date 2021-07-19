@@ -4,12 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar">
+
+
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:id="@+id/toolbar"
+
+        android:backgroundTint="@color/colorPrimary"
         >
+
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -20,9 +28,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add New Contact"
+                android:text="@string/add_new_contact"
                 android:textSize="20dp"
                 android:layout_toRightOf="@id/back_image_view"
+                android:textColor="@color/white"
                 ></TextView>
 
             <ImageView
@@ -37,6 +46,7 @@
             </ImageView>
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_below="@+id/toolbar"

@@ -43,18 +43,19 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
 
+        //inflate previously created list item layout to the list view
+
         LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.list_item, parent, false);
 
+        // set first name onto the text view of list item layout
+
         TextView firstNameTV;
-
         firstNameTV = view.findViewById(R.id.first_name_tv);
-
         Person p = (Person) this.getItem(position);
-
         firstNameTV.setText(p.getFirstName());
 
-
+        // return inflated view
         return view;
     }
 }
